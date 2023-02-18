@@ -16,21 +16,20 @@ var App = {
     MessagesView.initialize();
 
     // Fetch initial batch of messages
-    App.startSpinner();
-    App.fetch(App.stopSpinner);
+    App.feedRefresh();
 
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
+    setInterval(App.feedRefresh, 10000);
   },
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      // examine the response from the server request:
-      console.log(data);
-
-      // TODO: Use the data to update Messages and Rooms
-      // and re-render the corresponding views.
+      Messages.refresh(data);
+      Rooms.refresh(data);
+      Rooms.getCurrentRoom();
     });
+    callback();
   },
 
   startSpinner: function() {
@@ -41,5 +40,11 @@ var App = {
   stopSpinner: function() {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
+  },
+
+  feedRefresh: function() {
+    App.startSpinner();
+    App.fetch(App.stopSpinner);
+
   }
 };

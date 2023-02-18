@@ -5,9 +5,37 @@
 var Messages = {
 
   // TODO: Define how you want to store your messages.
-  _data: null,
+  _data: [],
 
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
+  refresh: function(data) {
+    Messages._data = data.map((message) => {
+      let simplifiedMessage = {
+        username: message.username,
+        text: message.text,
+        roomname: message.roomname
+      };
+      // Rooms.add(message.roomname);
+      return simplifiedMessage;
+    });
+    MessagesView.render();
+  },
+
+  // format: function(message) {
+  //   $('div')message.text
+  // }
+
+  send: function(event) {
+    let newMessage = {
+      username: App.username,
+      text: $('#message').val(),
+      roomname: Rooms._currentRoom
+    };
+
+    Parse.create(newMessage);
+
+  }
+
 
 };
