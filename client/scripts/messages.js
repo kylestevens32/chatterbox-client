@@ -22,20 +22,12 @@ var Messages = {
     MessagesView.render();
   },
 
-  // format: function(message) {
-  //   $('div')message.text
-  // }
-
   send: function(event) {
     let newMessage = {
       username: App.username,
       text: $('#message').val(),
       roomname: Rooms._currentRoom
     };
-
     Parse.create(newMessage);
-
   }
-
-
 };
