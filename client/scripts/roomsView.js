@@ -28,9 +28,6 @@ var RoomsView = {
   renderRoom: function(roomname) {
     // TODO: Render out a single room.
     let $option = $(`<option>${roomname}</option>`);
-    if () { 
-
-    }
     $('#rooms select').append($option);
   },
 
